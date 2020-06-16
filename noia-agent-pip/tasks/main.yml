@@ -1,0 +1,70 @@
+---
+
+- name: Install packages
+  yum:
+    state: latest
+    name:
+      - python3-pip
+      - python-setuptools
+  tags: packages
+  when: ansible_distribution == "CentOS"
+
+- name: Copy noia-agent.service file
+  template:
+    src: templates/noia-agent.service.j2
+    dest: /etc/systemd/system/noia-agent.service
+    force: no
+  tags:
+    - noia-agent
+    - service
+
+
+- name: create directories if they don't exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+  with_items:
+    - /etc/systemd/system/noia-agent.service.d/
+  tags:
+    - noia-agent
+
+- name: Copy 10-vars.conf file
+  template:
+    src: templates/10-vars.conf.j2
+    dest: /etc/systemd/system/noia-agent.service.d/
+    force: no
+  tags:
+    - noia-agent
+    - service
+
+- pip:
+    name:
+    - setuptools
+    executable: pip3
+    extra_args: --upgrade
+  tags:
+    - setup tools
+- pip:
+    name:
+    - platform-agent
+    executable: pip3
+  tags:
+    - pip
+    - noia-agent
+
+- name: force systemd to reload
+  systemd:
+    daemon_reload: yes
+
+- name: Make sure a service is enabled
+  systemd:
+    name: noia-agent.service
+    enabled: yes
+
+- name: Make sure a service is running
+  systemd:
+    state: restarted
+    name: noia-agent.service

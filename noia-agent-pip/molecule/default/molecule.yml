@@ -1,0 +1,45 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+platforms:
+  - name: centos_instance
+    image: znerolmolecule/molecule-prebuilt:centos-systemd
+    tty: yes
+    capabilities:
+      - SYS_ADMIN
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: debian_instance
+    image: znerolmolecule/molecule-prebuilt:debian-systemd
+    tty: yes
+    capabilities:
+      - SYS_ADMIN
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: ubuntu_instance
+    image: znerolmolecule/molecule-prebuilt:ubuntu-systemd
+    tty: yes
+    capabilities:
+      - SYS_ADMIN
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

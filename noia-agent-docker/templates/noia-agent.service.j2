@@ -1,0 +1,13 @@
+[Unit]
+Description=NOIA Agent
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=/usr/local/bin/noia-agent
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include noia-agent-pip"
+      include_role:
+        name: "noia-agent-pip"
