@@ -1,16 +1,5 @@
 ---
 
-#- include_tasks: geerlingguy.docker
-#  when: ansible_os_family == 'RedHat'
-#
-#- name: Install Docker Module for Python
-#  pip:
-#    name: docker
-#
-#- name: Install Docker Module for Python
-#  pip:
-#    name: docker-py
-
 - name: pull an image
   docker_image:
     name: noia/agent

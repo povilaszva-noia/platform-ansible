@@ -1,9 +1,5 @@
 # Ansible Role: Docker
 
-[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-docker.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-docker)
-
-An Ansible Role that installs [Docker](https://www.docker.com) on Linux.
-
 ## Requirements
 
 None.
@@ -35,8 +31,6 @@ Available variables are listed (see `vars/main.yml`):
 
 
 ## Use with Ansible (and `docker` Python library)
-
-Many users of this role wish to also use Ansible to then _build_ Docker images and manage Docker containers on the server where Docker is installed. In this case, you can easily add in the `docker` Python library using the `geerlingguy.pip` role:
 
 ```yaml
 - hosts: all
